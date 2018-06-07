@@ -1,6 +1,7 @@
 import tkinter
 from tkinter import filedialog
 import sys
+from tkinter.filedialog import askopenfilename
 
 root = tkinter.Tk("Text Editor")
 text = tkinter.Text(root)
@@ -16,6 +17,25 @@ def saveas():
 
 button = tkinter.Button(root, text="Save", command=saveas)
 button.grid()
+
+def openFile():
+    global text
+    name = askopenfilename(initialdir="C:/Users/HPi7/Dropbox/IvyTech/Python",
+                           filetypes = (("Text File", "*.txt"), ("All Files", "*.*")),
+                           title = "Choose a file."
+                           )
+    print(name)
+
+    try:
+        with open(name, 'r') as UseFile:
+            usedFile = UseFile.read()
+            text.insert(0.0, usedFile)
+    except:
+        print("No file exists")
+
+openButton = tkinter.Button(root, text="Open", command=openFile)
+openButton.grid()
+
 
 def FontHelvetica():
     global text
